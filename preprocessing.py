@@ -48,8 +48,7 @@ def process_multiple_videos(videos_folder, output_folder, frame_rate=1):
         video_to_frames(video_path, output_folder, frame_rate)
         print(f"Finished processing {video_file}")
 
-
-videos_folder = r"C:\Users\admin\Desktop\yapa zeka\dataset\FaceShifter"
-output_folder = r"C:\Users\admin\Desktop\yapa zeka\train_frams"
+videos_folder = r"C:\Users\admin\Desktop\yapa zeka\train data\fake"
+output_folder = r"C:\Users\admin\Desktop\yapa zeka\train_frams2"
 frame_rate = 30
 process_multiple_videos(videos_folder, output_folder, frame_rate)

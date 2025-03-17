@@ -2,8 +2,8 @@ import cv2
 import os
 import numpy as np
 
-input_folder = r'C:\Users\admin\Desktop\yapa zeka\train_frams'
-output_folder = r'C:\Users\admin\Desktop\yapa zeka\resized_frams'
+input_folder = r'C:\Users\admin\Desktop\yapa zeka\train_frams_fake'
+output_folder = r'C:\Users\admin\Desktop\yapa zeka\resized_fake_frams'
 
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
