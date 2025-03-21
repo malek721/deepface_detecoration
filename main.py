@@ -1,13 +1,13 @@
 import cv2
 import numpy as np
-from tensorflow.keras.models import load_model
+from keras._tf_keras.keras.models import load_model
 
 # Eğitilmiş modeli yükle
 model = load_model('deepfake_detection_model.h5')
 
 # Dış videonun yolu (Doğru video yolunu buraya girin)
-video_path = r"path_to_external_video.mp4"
-
+video_path = r"C:\Users\admin\Desktop\yapa zeka\data\Deepfakes\029_048.mp4"
+#
 # OpenCV ile videoyu aç
 cap = cv2.VideoCapture(video_path)
 
