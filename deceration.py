@@ -7,7 +7,7 @@ from deepface import DeepFace
 from torch import nn
 
 # ================== إعدادات ==================
-video_path = r"C:\Users\admin\Desktop\yapa zeka\data\Deepfakes\109_107.mp4"
+video_path = r"C:\Users\admin\Desktop\yapa zeka\data\Deepfakes\109_109.mp4"
 output_dir = "output_faces"
 frame_interval = 30
 model_path = "deepfake_cnn_new_model.pth"
