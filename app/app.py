@@ -31,11 +31,20 @@ def result():
     # return render_template('result.html', title="Result", filename=filename)
     return render_template('result.html', title="Result", custom_css='result')
 
-@app.route('/result')
-def result():
+@app.route('/how-it-work')
+def howItWork():
+    return render_template('howItWork.html', title="How It Work", custom_css='how-it-work')
+
+@app.route('/aboutus')
+def aboutUs():
+    return render_template('about.html', title="About Us", custom_css='about')
+
+@app.route('/contact')
+def contact():
     # filename = request.args.get('filename')
     # return render_template('result.html', title="Result", filename=filename)
-    return render_template('result.html', title="Result", custom_css='how-it-work')
+    return render_template('contact.html', title="contact", custom_css='contact')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
