@@ -82,7 +82,7 @@ class MyCNN(nn.Module):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Model yükleme
-model_path = "deepfake_cnn_new_model.pth"
+model_path = r"C:\Users\admin\PycharmProjects\deepface_detecoration\models\deepfake_cnn_new_model.pth"
 model = MyCNN().to(device)
 model.load_state_dict(torch.load(model_path, map_location=device))
 model.eval()
@@ -103,16 +103,14 @@ transform = transforms.Compose([
 processed_folder = r"C:\Users\admin\Desktop\yapa zeka\processed_model_inputs"
 
 
-def analyze_video(video_path, sample_rate=1):
+def analyze_video(video_path, sample_rate=30):
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
-        print(f"Error: Could not open video {video_path}")
-        return
+        return "Error: Could not open video"
 
     video_name = os.path.splitext(os.path.basename(video_path))[0]
     save_dir = os.path.join(processed_folder, video_name)
 
-    # Delete any previous files in the save directory
     if os.path.exists(save_dir):
         for file in os.listdir(save_dir):
             file_path = os.path.join(save_dir, file)
@@ -139,7 +137,6 @@ def analyze_video(video_path, sample_rate=1):
                 saved += 1
         frame_num += 1
     cap.release()
-    print(f"Extracted and saved {saved} face images to {save_dir}")
 
     for img_name in os.listdir(save_dir):
         img_path = os.path.join(save_dir, img_name)
@@ -147,7 +144,8 @@ def analyze_video(video_path, sample_rate=1):
         if img is None or len(mtcnn.detect_faces(img)) == 0:
             os.remove(img_path)
     remaining = len(os.listdir(save_dir))
-    print(f"Remaining after MTCNN filter: {remaining} images")
+    if remaining == 0:
+        return "No valid face inputs"
 
     preds = []
     for img_name in os.listdir(save_dir):
@@ -163,13 +161,14 @@ def analyze_video(video_path, sample_rate=1):
 
     if preds:
         mean_p = sum(preds) / len(preds)
-        print(f"Mean Deepfake Probability: {mean_p:.4f}")
-        print("Video classified as", "Deepfake" if mean_p > 0.5 else "Real")
+        deepfake_rate = round(mean_p * 100, 2)
+        final_result = "Yüklenen video fake’dir" if mean_p > 0.5 else "Yüklenen video gerçektir"
+        return deepfake_rate, final_result
     else:
-        print("No valid face inputs for model.")
+        return 0, "Yüz algılanamadı."
 
 
-if __name__ == "__main__":
-    video_file = r"C:\Users\admin\Desktop\yapa zeka\data\original\146.mp4"
-    print(f"Processing video: {video_file}")
-    analyze_video(video_file)
+# if __name__ == "__main__":
+#     video_file = r"C:\Users\admin\Desktop\yapa zeka\data\original\146.mp4"
+#     print(f"Processing video: {video_file}")
+#     analyze_video(video_file)

@@ -59,7 +59,9 @@ p{
 .input-wrapper {
     position: relative;
 }
-
+.algila-btn{
+    margin-top: 30px;
+}
 .submit-button {
     position: absolute;
     top: 50%;
