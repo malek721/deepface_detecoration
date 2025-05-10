@@ -2,20 +2,18 @@ import cv2
 import os
 import numpy as np
 
-#  نموذج Haar Cascade لتحديد الوجوه
+
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 
 def detect_and_crop_face(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    # الكشف عن الوجوه، يمكن تعديل المعاملات حسب الحاجة
+
     faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
 
     if len(faces) == 0:
-        # إذا لم يتم الكشف عن وجه، يمكن إرجاع الفريم الأصلي أو التعامل معه بطريقة أخرى
         return frame
 
-    # اختيار أول وجه (يمكن اختيار الأكبر أو بناءً على معايير أخرى)
     (x, y, w, h) = faces[0]
     cropped_face = frame[y:y + h, x:x + w]
     return cropped_face
@@ -54,11 +52,10 @@ def video_to_frames_and_process(video_path, output_folder, frame_rate=1, target_
         ret, frame = cap.read()
         if not ret:
             break
-        # استخراج الفريمات بمعدل معين
+
         if frame_count % frame_rate == 0:
-            # تطبيق تحديد الوجه واقتصاصه
+
             processed_frame = detect_and_crop_face(frame)
-            # تعديل حجم الصورة مع إضافة حواف سوداء
             resized_frame = resize_with_padding(processed_frame, target_size)
             frame_filename = os.path.join(video_output_folder, f"frame_{saved_frame_count:04d}.jpg")
             cv2.imwrite(frame_filename, resized_frame)
@@ -78,10 +75,9 @@ def process_multiple_videos(videos_folder, output_folder, frame_rate=1, target_s
         print(f"Finished processing {video_file}")
 
 
-# تعديل المسارات والمعاملات حسب الحاجة
 videos_folder = r"C:\Users\admin\Desktop\yapa zeka\data\fake"
 output_folder = r"C:\Users\admin\Desktop\yapa zeka\processed_fake"
-frame_rate = 5  # استخراج فريم واحد كل 5 فريمات
-target_size = 256  # حجم الصورة النهائية
+frame_rate = 5
+target_size = 256
 
 process_multiple_videos(videos_folder, output_folder, frame_rate, target_size)

@@ -4,7 +4,6 @@ import numpy as np
 
 
 def crop_center(img, target_size=256):
-    """ يقتص أكبر مربع من الصورة ثم يغير حجمه إلى الحجم المطلوب """
     h, w = img.shape[:2]
     min_dim = min(h, w)
     start_x = (w - min_dim) // 2
@@ -15,7 +14,7 @@ def crop_center(img, target_size=256):
 
 
 def video_to_frames(video_path, output_folder, frame_rate=5, target_size=256):
-    """ استخراج الفريمات من الفيديو مع الاقتصاص من المنتصف """
+
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
         print(f"Error: Could not open video {video_path}")
@@ -34,7 +33,7 @@ def video_to_frames(video_path, output_folder, frame_rate=5, target_size=256):
         if not ret:
             break
 
-        # استخراج صورة كل 5 فريمات
+
         if frame_count % frame_rate == 0:
             processed_frame = crop_center(frame, target_size)
             frame_filename = os.path.join(video_output_folder, f"frame_{saved_frame_count:04d}.jpg")
@@ -43,7 +42,7 @@ def video_to_frames(video_path, output_folder, frame_rate=5, target_size=256):
 
         frame_count += 1
 
-        # طباعة تقدم المعالجة
+
         if frame_count % 1000 == 0:
             print(f"Processed {frame_count}/{total_frames} frames of video {video_name}")
 
@@ -52,7 +51,7 @@ def video_to_frames(video_path, output_folder, frame_rate=5, target_size=256):
 
 
 def process_multiple_videos(videos_folder, output_folder, frame_rate=5, target_size=256):
-    """ معالجة عدة فيديوهات داخل مجلد """
+
     video_files = [f for f in os.listdir(videos_folder) if f.endswith(('.mp4', '.avi', '.mov'))]
     for video_file in video_files:
         video_path = os.path.join(videos_folder, video_file)
@@ -60,10 +59,10 @@ def process_multiple_videos(videos_folder, output_folder, frame_rate=5, target_s
         print(f"Finished processing {video_file}")
 
 
-# تعديل المسارات والمعاملات حسب الحاجة
+
 videos_folder = r"C:\Users\admin\Desktop\yapa zeka\data\original"
 output_folder = r"C:\Users\admin\Desktop\yapa zeka\croped_original"
-frame_rate = 1 # استخراج صورة كل 5 فريمات
-target_size = 256  # حجم الصورة النهائي
+frame_rate = 1
+target_size = 256
 
 process_multiple_videos(videos_folder, output_folder, frame_rate, target_size)
