@@ -5,7 +5,6 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 from mtcnn import MTCNN
 
-
 # Yeni MyCNN modeli (derin residual yapı)
 class MyCNN(nn.Module):
     class ResidualBlock(nn.Module):
